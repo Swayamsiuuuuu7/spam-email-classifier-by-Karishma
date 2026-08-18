@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Inbox Radar — Spam Email Classifier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<div class="scan-overlay" id="scanOverlay"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" id="brandMark"><span class="brand-dot"></span></span>
+    <div class="brand-text">
+      <h1>Inbox Radar</h1>
+      <p>Spam email classifier</p>
+    </div>
+  </div>
+  <div class="model-chip" id="modelChip">
+    <span class="chip-label">model accuracy</span>
+    <span class="chip-value" id="modelAccuracy">—</span>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- LEFT: input console -->
+  <section class="panel console">
+    <div class="panel-head">
+      <span class="panel-title">01 — Message</span>
+      <span class="panel-sub">paste an email or load a sample</span>
+    </div>
+
+    <div class="samples">
+      <button class="sample-chip" data-sample="lottery">Lottery scam</button>
+      <button class="sample-chip" data-sample="phishing">Account phishing</button>
+      <button class="sample-chip" data-sample="promo">Retail promo</button>
+      <button class="sample-chip" data-sample="work">Work update</button>
+      <button class="sample-chip" data-sample="personal">Personal note</button>
+    </div>
+
+    <div class="field-group">
+      <input type="text" id="subjectInput" class="subject-input" placeholder="Subject line (optional)" />
+      <textarea id="bodyInput" class="body-input" placeholder="Paste the email body here…" rows="12"></textarea>
+    </div>
+
+    <div class="console-actions">
+      <button id="analyzeBtn" class="btn-primary">
+        <span class="btn-label">Analyze message</span>
+      </button>
+      <button id="clearBtn" class="btn-ghost">Clear</button>
+    </div>
+    <p class="hint" id="errorHint"></p>
+  </section>
+
+  <!-- RIGHT: results -->
+  <section class="panel results" id="resultsPanel">
+
+    <div class="panel-head">
+      <span class="panel-title">02 — Readout</span>
+      <span class="panel-sub" id="statusSub">waiting for input</span>
+    </div>
+
+    <div class="empty-state" id="emptyState">
+      <div class="radar-static">
+        <div class="radar-ring r1"></div>
+        <div class="radar-ring r2"></div>
+        <div class="radar-ring r3"></div>
+        <div class="radar-blip"></div>
+      </div>
+      <p>Nothing scanned yet. Paste a message on the left and hit <strong>Analyze message</strong>.</p>
+    </div>
+
+    <div class="result-content" id="resultContent" hidden>
+
+      <div class="verdict-row">
+        <div class="verdict-badge" id="verdictBadge">
+          <span class="verdict-label" id="verdictLabel">—</span>
+        </div>
+        <div class="confidence-block">
+          <div class="confidence-top">
+            <span>confidence</span>
+            <span id="confidenceValue" class="mono">—</span>
+          </div>
+          <div class="confidence-track">
+            <div class="confidence-fill" id="confidenceFill"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prob-bars" id="probBars"></div>
+
+      <div class="block">
+        <h3>Flagged signals</h3>
+        <div class="trigger-list" id="triggerList"></div>
+        <p class="empty-note" id="noTriggerNote" hidden>No strongly weighted words found — this is a fairly neutral message.</p>
+      </div>
+
+      <div class="block">
+        <h3>Message with signals highlighted</h3>
+        <div class="highlighted-text" id="highlightedText"></div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <span id="footerStats">Loading model stats…</span>
+</footer>
+
+<script src="/script.js"></script>
+</body>
+</html>

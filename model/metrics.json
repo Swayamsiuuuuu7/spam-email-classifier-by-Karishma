@@ -1,0 +1,39 @@
+{
+  "best_model": "naive_bayes",
+  "n_train": 2208,
+  "n_test": 552,
+  "results": {
+    "naive_bayes": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          276,
+          0
+        ],
+        [
+          0,
+          276
+        ]
+      ]
+    },
+    "logistic_regression": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          276,
+          0
+        ],
+        [
+          0,
+          276
+        ]
+      ]
+    }
+  }
+}
